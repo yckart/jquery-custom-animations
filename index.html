@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery custom animations</title>
+
+    <style type='text/css'>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px
+        }
+
+        h1 {color:black}
+
+
+        input {
+            padding: 3px 6px;
+            cursor: pointer;
+            color: white;
+            background: black;
+            border: 1px dotted black
+        }
+        input:hover{color:black; background:white}
+
+        .area {
+            padding: 20px 0;
+            min-height: 180px;
+            border-top: 1px dotted black;
+        }
+
+        .outer {
+            position: absolute;
+            right: 0;
+            overflow: hidden;
+            height: 120px;
+            width: 120px;
+            margin: 20px;
+            -webkit-transition: all .4s
+        }
+        .outer .box {
+            padding: 10px;
+            height: 100px;
+            width: 100px;
+            line-height: 100px;
+            color: white;
+            text-align: center;
+            background: black
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>jQuery custom animations</h1>
+
+    <div class=outer>
+        <div class=box>Foo Bar</div>
+    </div>
+
+    <div class="area">
+        <input type=button value="flash" id="flash">
+        <input type=button value="wiggle" id="wiggle">
+        <input type=button value="zap" id="zap">
+    </div>
+
+    <div class="area">
+        <input type=button value="fadeToToggle" id="fadeToToggle">
+        <input type=button value="slideFadeToggle" id="slideFadeToggle">
+    </div>
+
+    <div class="area">
+        <input type=button value="blowToggle" id="blowToggle">
+        <input type=button value="blowOut" id="blowOut">
+        <input type=button value="blowIn" id="blowIn">
+    </div>
+
+    <div class="area">
+        <input type=button value="blindLeftToggle" id="blindLeftToggle">
+        <input type=button value="blindLeftOut" id="blindLeftOut">
+        <input type=button value="blindLeftIn" id="blindLeftIn">
+    </div>
+
+    <div class="area">
+        <input type=button value="blindRightToggle" id="blindRightToggle">
+        <input type=button value="blindRightOut" id="blindRightOut">
+        <input type=button value="blindRightIn" id="blindRightIn">
+    </div>
+
+    <div class="area">
+        <input type=button value="blindUpToggle" id="blindUpToggle">
+        <input type=button value="blindUpOut" id="blindUpOut">
+        <input type=button value="blindUpIn" id="blindUpIn">
+    </div>
+
+    <div class="area">
+        <input type=button value="blindDownToggle" id="blindDownToggle">
+        <input type=button value="blindDownOut" id="blindDownOut">
+        <input type=button value="blindDownIn" id="blindDownIn">
+    </div>
+
+
+    <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+    <script src='js/jquery.custom-animations.js'></script>
+    <script>
+        var win = $(window),
+            $box = $('.box'),
+            item = $('.area'),
+            current = $('.inView'),
+            scroller = $('.outer');
+
+        $(function () {
+
+            $('#wiggle').click(function () {
+                $box.wiggle(4);
+            });
+
+            $('#zap').click(function () {
+                $box.zap('slow');
+            });
+
+            $('#flash').click(function () {
+                $box.flash();
+            });
+
+
+
+            $('#blowOut').click(function () {
+                $box.blowOut('slow');
+            });
+
+            $('#blowIn').click(function () {
+                $box.blowIn('slow');
+            });
+
+            $('#blowToggle').click(function () {
+                $box.blowToggle('slow');
+            });
+
+
+
+            $('#blindLeftToggle').click(function () {
+                $box.blindLeftToggle('slow');
+            });
+
+            $('#blindLeftIn').click(function () {
+                $box.blindLeftIn('slow');
+            });
+
+            $('#blindLeftOut').click(function () {
+                $box.blindLeftOut('slow');
+            });
+
+
+
+            $('#blindRightToggle').click(function () {
+                $box.blindRightToggle('slow');
+            });
+
+            $('#blindRightIn').click(function () {
+                $box.blindRightIn('slow');
+            });
+
+            $('#blindRightOut').click(function () {
+                $box.blindRightOut('slow');
+            });
+
+
+
+            $('#fadeToToggle').click(function () {
+                $box.fadeToToggle('slow', '0.5');
+            });
+
+
+
+            $('#slideFadeToggle').click(function () {
+                $box.slideFadeToggle('slow');
+            });
+
+            $('#slideFadeIn').click(function () {
+                $box.slideFadeIn('slow');
+            });
+
+            $('#slideFadeOut').click(function () {
+                $box.slideFadeOut('slow');
+            });
+
+
+
+            $('#blindUpToggle').click(function () {
+                $box.blindUpToggle('slow');
+            });
+
+            $('#blindUpIn').click(function () {
+                $box.blindUpIn('slow');
+            });
+
+            $('#blindUpOut').click(function () {
+                $box.blindUpOut('slow');
+            });
+
+
+
+            $('#blindDownToggle').click(function () {
+                $box.blindDownToggle('slow');
+            });
+            $('#blindDownIn').click(function () {
+                $box.blindDownIn('slow');
+            });
+            $('#blindDownOut').click(function () {
+                $box.blindDownOut('slow');
+            });
+
+        });
+
+
+        win.scroll(function () {
+            var cutoff = win.scrollTop() + (win.height() / item.length);
+            item.each(function () {
+                var self = $(this),
+                    offset = self.offset().top;
+
+                if (offset + self.height() > cutoff + 100){
+                    item.removeClass('inView');
+                    current = self.addClass('inView');
+
+                    scroller.stop().css({
+                        top: offset + 10
+                    });
+
+                    // $('a.reset').toggle(current.find('.box').is(':hidden'));
+
+                    return false; // stops the iteration after the first one on screen
+                }
+            });
+        }).scroll();
+    </script>
+</body>
+</html>
