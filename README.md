@@ -1,7 +1,7 @@
 jquery-custom-animations
 ========================
 
-Some nice custom animations to use with jQuery.
+Some nice custom animations, similar to jQuery UI Effects but works standalone.
 
 Available effects:
 
